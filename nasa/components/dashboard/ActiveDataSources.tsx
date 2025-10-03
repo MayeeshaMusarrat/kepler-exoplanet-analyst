@@ -5,10 +5,10 @@ import { Progress } from "@/components/ui/progress";
 import { Satellite } from "lucide-react";
 
 const dataSources = [
-    { name: "Kepler", confirmed: 4043, color: "bg-blue-500", icon: "❄️" },
-    { name: "TESS", confirmed: 1682, color: "bg-green-500", icon: "🌐" },
-    { name: "CoRoT", confirmed: 37, color: "bg-purple-500", icon: "🎯" },
-    { name: "Ground", confirmed: 342, color: "bg-orange-500", icon: "🌍" },
+    { name: "Kepler", confirmed: 4043, color: "bg-chart-1", icon: "❄️" },
+    { name: "TESS", confirmed: 1682, color: "bg-chart-2", icon: "🌐" },
+    { name: "CoRoT", confirmed: 37, color: "bg-chart-5", icon: "🎯" },
+    { name: "Ground", confirmed: 342, color: "bg-chart-4", icon: "🌍" },
 ];
 
 export default function ActiveDataSources() {
@@ -18,9 +18,9 @@ export default function ActiveDataSources() {
     );
 
     return (
-        <Card className="bg-[#1a2332] border-gray-800">
+        <Card className="bg-card border-border">
             <CardHeader>
-                <CardTitle className="text-white flex items-center gap-2">
+                <CardTitle className="text-card-foreground flex items-center gap-2">
                     <Satellite className="w-5 h-5" />
                     Active Data Sources
                 </CardTitle>
@@ -30,16 +30,16 @@ export default function ActiveDataSources() {
                     {dataSources.map((source) => (
                         <div
                             key={source.name}
-                            className="bg-[#0f1419] rounded-lg p-4 border border-gray-800 hover:border-gray-700 transition-colors"
+                            className="bg-muted/20 rounded-lg p-4 border border-border hover:border-muted-foreground/30 transition-colors"
                         >
                             <div className="text-center mb-3">
                                 <div className="text-3xl mb-2">
                                     {source.icon}
                                 </div>
-                                <h3 className="text-white font-semibold mb-1">
+                                <h3 className="text-foreground font-semibold mb-1">
                                     {source.name}
                                 </h3>
-                                <p className="text-xs text-gray-400">
+                                <p className="text-xs text-muted-foreground">
                                     {source.confirmed.toLocaleString()}{" "}
                                     confirmed
                                 </p>

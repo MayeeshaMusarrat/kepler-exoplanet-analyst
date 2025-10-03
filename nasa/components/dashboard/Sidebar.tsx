@@ -8,7 +8,7 @@ import {
     Settings,
 } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const menuItems = [
     { icon: Activity, label: "AI Model", href: "/dashboard" },
@@ -20,29 +20,37 @@ const menuItems = [
 
 export default function Sidebar() {
     const pathname = usePathname();
+    const router = useRouter();
 
     return (
-        <aside className="w-64 bg-[#1a2332] border-r border-gray-800 flex flex-col">
-            <div className="p-6 border-b border-gray-800">
+        <aside className="w-64 bg-sidebar border-r border-sidebar-border flex flex-col">
+            <button
+                className="p-6 border-b border-sidebar-border w-full text-left cursor-pointer"
+                onClick={() => router.push("/")}
+                type="button"
+            >
                 <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
-                        <Telescope className="w-5 h-5 text-white" />
+                    <div className="w-8 h-8 bg-chart-1 rounded-lg flex items-center justify-center">
+                        <Telescope className="w-5 h-5 text-primary-foreground" />
                     </div>
                     <div>
-                        <h2 className="text-white font-semibold">
+                        <h2 className="text-sidebar-foreground font-semibold">
                             NASA ExoPlanet
                         </h2>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-xs text-muted-foreground">
                             Discovery Dashboard
                         </p>
                     </div>
                 </div>
-            </div>
+            </button>
 
             <nav className="flex-1 p-4">
                 {menuItems.map((item) => {
                     const Icon = item.icon;
-                    const isActive = pathname === item.href;
+                    const isActive =
+                        pathname === item.href ||
+                        (item.href === "/dashboard/discoveries" &&
+                            pathname?.startsWith("/dashboard/discoveries"));
 
                     return (
                         <Link
@@ -50,8 +58,8 @@ export default function Sidebar() {
                             href={item.href}
                             className={`flex items-center gap-3 px-4 py-3 rounded-lg mb-1 transition-colors ${
                                 isActive
-                                    ? "bg-blue-600 text-white"
-                                    : "text-gray-400 hover:bg-gray-800 hover:text-white"
+                                    ? "bg-sidebar-primary text-sidebar-primary-foreground"
+                                    : "text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                             }`}
                         >
                             <Icon className="w-5 h-5" />
@@ -61,18 +69,20 @@ export default function Sidebar() {
                 })}
             </nav>
 
-            <div className="p-4 border-t border-gray-800">
+            <div className="p-4 border-t border-sidebar-border">
                 <div className="flex items-center gap-3 px-4 py-3">
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-                        <span className="text-white text-xs font-semibold">
-                            DC
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-chart-1 to-chart-5 flex items-center justify-center">
+                        <span className="text-primary-foreground text-xs font-semibold">
+                            AM
                         </span>
                     </div>
                     <div className="flex-1">
-                        <p className="text-white text-sm font-medium">
-                            Dr. Sarah Chen
+                        <p className="text-sidebar-foreground text-sm font-medium">
+                            Abrar Mahir Esam
                         </p>
-                        <p className="text-gray-400 text-xs">Researcher</p>
+                        <p className="text-muted-foreground text-xs">
+                            Researcher & Software Engineer
+                        </p>
                     </div>
                 </div>
             </div>

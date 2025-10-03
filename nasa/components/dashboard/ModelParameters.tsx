@@ -12,24 +12,32 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Sliders, Play } from "lucide-react";
+import { Sliders, Play, Square } from "lucide-react";
 import { useState } from "react";
 
-export default function ModelParameters() {
+interface ModelParametersProps {
+    onStartTraining: () => void;
+    isTraining: boolean;
+}
+
+export default function ModelParameters({
+    onStartTraining,
+    isTraining,
+}: ModelParametersProps) {
     const [learningRate, setLearningRate] = useState([0.001]);
     const [dropoutRate, setDropoutRate] = useState([0.2]);
 
     return (
-        <Card className="bg-[#1a2332] border-gray-800">
+        <Card className="bg-card border-border">
             <CardHeader>
-                <CardTitle className="text-white flex items-center gap-2">
+                <CardTitle className="text-card-foreground flex items-center gap-2">
                     <Sliders className="w-5 h-5" />
                     Model Parameters
                 </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
                 <div className="space-y-2">
-                    <Label className="text-gray-300">Learning Rate</Label>
+                    <Label className="text-foreground">Learning Rate</Label>
                     <div className="flex items-center gap-4">
                         <Slider
                             value={learningRate}
@@ -39,11 +47,11 @@ export default function ModelParameters() {
                             step={0.001}
                             className="flex-1"
                         />
-                        <span className="text-gray-400 text-sm w-16 text-right">
+                        <span className="text-muted-foreground text-sm w-16 text-right">
                             {learningRate[0].toFixed(3)}
                         </span>
                     </div>
-                    <div className="flex justify-between text-xs text-gray-500">
+                    <div className="flex justify-between text-xs text-muted-foreground">
                         <span>0.001</span>
                         <span>0.061</span>
                         <span>0.1</span>
@@ -51,12 +59,12 @@ export default function ModelParameters() {
                 </div>
 
                 <div className="space-y-2">
-                    <Label className="text-gray-300">Batch Size</Label>
+                    <Label className="text-foreground">Batch Size</Label>
                     <Select defaultValue="64">
-                        <SelectTrigger className="bg-[#2a3441] border-gray-700 text-white">
+                        <SelectTrigger className="bg-background border-border text-foreground">
                             <SelectValue />
                         </SelectTrigger>
-                        <SelectContent className="bg-[#2a3441] border-gray-700">
+                        <SelectContent className="bg-popover border-border">
                             <SelectItem value="32">32</SelectItem>
                             <SelectItem value="64">64</SelectItem>
                             <SelectItem value="128">128</SelectItem>
@@ -66,16 +74,16 @@ export default function ModelParameters() {
                 </div>
 
                 <div className="space-y-2">
-                    <Label className="text-gray-300">Hidden Layers</Label>
+                    <Label className="text-foreground">Hidden Layers</Label>
                     <Input
                         type="number"
                         defaultValue="3"
-                        className="bg-[#2a3441] border-gray-700 text-white"
+                        className="bg-background border-border text-foreground"
                     />
                 </div>
 
                 <div className="space-y-2">
-                    <Label className="text-gray-300">Dropout Rate</Label>
+                    <Label className="text-foreground">Dropout Rate</Label>
                     <div className="flex items-center gap-4">
                         <Slider
                             value={dropoutRate}
@@ -85,20 +93,33 @@ export default function ModelParameters() {
                             step={0.1}
                             className="flex-1"
                         />
-                        <span className="text-gray-400 text-sm w-16 text-right">
+                        <span className="text-muted-foreground text-sm w-16 text-right">
                             {dropoutRate[0].toFixed(1)}
                         </span>
                     </div>
-                    <div className="flex justify-between text-xs text-gray-500">
+                    <div className="flex justify-between text-xs text-muted-foreground">
                         <span>0</span>
                         <span>0.2</span>
                         <span>0.5</span>
                     </div>
                 </div>
 
-                <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
-                    <Play className="w-4 h-4 mr-2" />
-                    Start Training
+                <Button
+                    onClick={onStartTraining}
+                    disabled={isTraining}
+                    className="w-full bg-chart-1 hover:bg-chart-1/90 text-primary-foreground disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                    {isTraining ? (
+                        <>
+                            <Square className="w-4 h-4 mr-2" />
+                            Training in Progress...
+                        </>
+                    ) : (
+                        <>
+                            <Play className="w-4 h-4 mr-2" />
+                            Start Training
+                        </>
+                    )}
                 </Button>
             </CardContent>
         </Card>

@@ -5,17 +5,17 @@ import { Sparkles } from "lucide-react";
 
 export default function ShapAnalysis() {
     const features = [
-        { name: "Transit Depth", value: 0.24, color: "bg-teal-500" },
-        { name: "Period", value: -0.21, color: "bg-blue-500" },
-        { name: "Duration", value: 0.15, color: "bg-cyan-500" },
-        { name: "SNR", value: 0.12, color: "bg-orange-500" },
+        { name: "Transit Depth", value: 0.24, color: "bg-chart-2" },
+        { name: "Period", value: -0.21, color: "bg-chart-1" },
+        { name: "Duration", value: 0.15, color: "bg-chart-3" },
+        { name: "SNR", value: 0.12, color: "bg-chart-4" },
     ];
 
     return (
-        <Card className="bg-[#1a2332] border-gray-800">
+        <Card className="bg-card border-border">
             <CardHeader>
-                <CardTitle className="text-white flex items-center gap-2">
-                    <Sparkles className="w-5 h-5 text-yellow-400" />
+                <CardTitle className="text-card-foreground flex items-center gap-2">
+                    <Sparkles className="w-5 h-5 text-chart-2" />
                     SHAP Analysis
                 </CardTitle>
             </CardHeader>
@@ -24,21 +24,21 @@ export default function ShapAnalysis() {
                     {features.map((feature) => (
                         <div key={feature.name} className="space-y-1">
                             <div className="flex justify-between text-sm">
-                                <span className="text-gray-400">
+                                <span className="text-muted-foreground">
                                     {feature.name}
                                 </span>
                                 <span
                                     className={`font-semibold ${
                                         feature.value > 0
-                                            ? "text-green-400"
-                                            : "text-blue-400"
+                                            ? "text-chart-1"
+                                            : "text-chart-2"
                                     }`}
                                 >
                                     {feature.value > 0 ? "+" : ""}
                                     {feature.value.toFixed(2)}
                                 </span>
                             </div>
-                            <div className="relative h-2 bg-gray-800 rounded-full overflow-hidden">
+                            <div className="relative h-2 bg-muted rounded-full overflow-hidden">
                                 <div
                                     className={`h-full ${feature.color} transition-all duration-500`}
                                     style={{
@@ -52,8 +52,8 @@ export default function ShapAnalysis() {
                     ))}
                 </div>
 
-                <div className="bg-blue-900/20 border border-blue-700/30 rounded-lg p-3 mt-4">
-                    <p className="text-xs text-blue-300 leading-relaxed">
+                <div className="bg-chart-1/10 border border-chart-1/30 rounded-lg p-3 mt-4">
+                    <p className="text-xs text-chart-1 leading-relaxed">
                         💡 The deep transit and orbital period are the strongest
                         indicators of an exoplanet.
                     </p>
